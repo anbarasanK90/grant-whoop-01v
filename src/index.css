@@ -1,13 +1,165 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*,body,p {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'League Gothic';
+  font-weight: normal;
+  font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+h1,h2,h3,h4,h5,h6{
+  font-family: 'League Gothic'!important;
+}
+p{
+  font-family: Helvetica, Sans-Serif!important;
+}
+:root{
+  /* Theme colors */
+  --color-primary:#1c46b4;
+  --color-orange:#eb7c25;
+  --color-textBlue:#1972ba;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+@font-face {
+  font-family: 'League Gothic SemiCondensed';
+  src: url('../src/fonts/LeagueGothicSemiCondensed-Regular.eot');
+  src: url('../src/fonts/LeagueGothicSemiCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../src/fonts/LeagueGothicSemiCondensed-Regular.woff2') format('woff2'),
+      url('../src/fonts/LeagueGothicSemiCondensed-Regular.woff') format('woff'),
+      url('../src/fonts/LeagueGothicSemiCondensed-Regular.ttf') format('truetype'),
+      url('../src/fonts/LeagueGothicSemiCondensed-Regular.svg#LeagueGothicSemiCondensed-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'League Gothic Condensed';
+  src: url('../src/fonts/LeagueGothicCondensed-Regular.eot');
+  src: url('../src/fonts/LeagueGothicCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../src/fonts/LeagueGothicCondensed-Regular.woff2') format('woff2'),
+      url('../src/fonts/LeagueGothicCondensed-Regular.woff') format('woff'),
+      url('../src/fonts/LeagueGothicCondensed-Regular.ttf') format('truetype'),
+      url('../src/fonts/LeagueGothicCondensed-Regular.svg#LeagueGothicCondensed-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'League Gothic';
+  src: url('../src/fonts/LeagueGothic-Regular.eot');
+  src: url('../src/fonts/LeagueGothic-Regular.eot?#iefix') format('embedded-opentype'),
+      url('../src/fonts/LeagueGothic-Regular.woff2') format('woff2'),
+      url('../src/fonts/LeagueGothic-Regular.woff') format('woff'),
+      url('../src/fonts/LeagueGothic-Regular.ttf') format('truetype'),
+      url('../src/fonts/LeagueGothic-Regular.svg#LeagueGothic-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.carousalSection{
+  background-image: url('../src/images/01_Sky_BG.jpg');
+  /* height: 90vh;
+    min-height: 500px;
+    max-height: 1300px ; */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.whoopconnectSection{
+  background-image: url('../src/images/01_Sky_BG.jpg');
+  /* height: 90vh;
+    min-height: 500px;
+    max-height: 1300px ; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top:3rem;
+    padding-bottom:3rem;
+    border-top: 10px solid #eb7c25;
+    border-bottom: 10px solid #eb7c25;
+}
+.disclaimer_section{
+  background: #fff;
+  padding-top:3rem;
+  padding-bottom: 3rem;
+}
+.customFooter_section{
+  background: #2391ff;
+  padding-top:2rem;
+  padding-bottom:2rem;
+}
+.LetsconnectSection{
+  background: #fff;
+  padding-top:3rem;
+  padding-bottom:3rem;
+}
+.text_orange{
+  color:var(--color-orange);
+}
+.text_blue{
+  color:var(--color-textBlue);
+}
+.applyTodayDiv{
+  background: rgb(235,90,12);
+background: linear-gradient(90deg, rgba(235,90,12,1) 0%, rgba(242,147,96,1) 100%);
+padding: 15px;
+border:2px solid #fff;
+border-radius: 10px;
+}
+.custom_input{
+  width:100%;
+  background: #fff;
+  padding: 4px;
+  border-radius: 5px;
+  border:2px solid #74c047;
+}
+.custom_input input{
+  text-align: center;
+}
+.btn_success{
+  background-color:#74c047!important;
+  border:2px solid #fff!important;
+}
+.carousal_right_img{
+  position: absolute;
+  right:0px;
+  top:98px;
+}
+.slick-arrow.slick-next, .slick-arrow.slick-previous{
+display: none!important;
+}
+.carousalSection .slick-dots{
+  bottom:8px;
+}
+.carousalSection .slick-dots li button:before{
+  font-size: 12px;
+  color:#fff;
+}
+.carousalSection .slick-dots li.slick-active button:before{
+  color:#fff;
+}
+ul.listItemsTwo {
+  -moz-column-count: 2;
+  -moz-column-gap: 10px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 10px;
+  column-count: 2;
+  column-gap: 10px;
+  text-align: left;
+  list-style: disc;
+  padding-left: 30px;
+  margin-top:15px;
+}
+ul.listItemsTwo li{
+  font-size: 20px;
+}
+.textAlignLast{
+  text-align-last: center;
 }
