@@ -24,10 +24,10 @@ function App() {
       {/* <LetsconnectSection />
       <WhoopconnectSection />
       <DisclaimerSection />
-
+ */}
       <footer className='customFooter_section'>
         <Copyright />
-      </footer> */}
+      </footer>
     </div>
   );
 }
