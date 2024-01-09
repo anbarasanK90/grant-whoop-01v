@@ -15,6 +15,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 
 const WhoopconnectSection = () => {
+  return (
     <section className='whoopconnectSection'>
         <Container fixed>
           <Grid container className='' spacing={2}>
@@ -59,6 +60,7 @@ const WhoopconnectSection = () => {
           </Grid>
         </Container>
       </section>
+  );
 }
 
 export default WhoopconnectSection;

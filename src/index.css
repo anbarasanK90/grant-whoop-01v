@@ -14,12 +14,15 @@ h1,h2,h3,h4,h5,h6{
 }
 p{
   font-family: Helvetica, Sans-Serif!important;
+  line-height: normal;
 }
 :root{
   /* Theme colors */
   --color-primary:#1c46b4;
   --color-orange:#eb7c25;
   --color-textBlue:#1972ba;
+  --bg-listbackground:rgb(248 250 252);
+  --green-border:#74c047;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -63,8 +66,6 @@ code {
   font-style: normal;
   font-display: swap;
 }
-
-
 .carousalSection{
   background-image: url('../src/images/01_Sky_BG.jpg');
   /* height: 90vh;
@@ -72,6 +73,16 @@ code {
     max-height: 1300px ; */
     background-size: cover;
     background-repeat: no-repeat;
+}
+.CoverageReportSection{
+  background-image: url('../src/images/01_Sky_BG.jpg');
+  /* height: 90vh;
+    min-height: 500px;
+    max-height: 1300px ; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 .whoopconnectSection{
   background-image: url('../src/images/01_Sky_BG.jpg');
@@ -162,4 +173,130 @@ ul.listItemsTwo li{
 }
 .textAlignLast{
   text-align-last: center;
+}
+.CoverageDiv{
+  border:6px solid #eb7c25;
+  border-radius:20px;
+  padding:15px;
+  background: #fff;
+}
+.CoverageDiv .custom_input {
+  width: 100%;
+  background: #fff;
+  padding: 1px;
+  border-radius: 10px;
+  border: 1.5px solid #74c047;
+}
+.CoverageDiv .btn_success {
+  background-color: #74c047!important;
+  border: 1.5px solid #fff!important;
+  border-radius: 10px;
+  box-shadow: none;
+    padding: 6px!important;
+    text-transform: capitalize;
+}
+.CoverageDiv .MuiSlider-markLabel.MuiSlider-markLabel{
+  top:-16px;
+}
+.CoverageDiv [data-index="0"].MuiSlider-markLabel.MuiSlider-markLabel{
+  left:5%!important;
+}
+.CoverageDiv [data-index="3"].MuiSlider-markLabel.MuiSlider-markLabel{
+  left:90%!important;
+}
+.CoverageDiv .MuiSlider-mark{
+  background: #eb7c25;
+}
+.CoverageDiv .MuiSlider-root{
+  height:8px;
+}
+.CoverageDiv .MuiFormLabel-root{
+  background: #fff;
+  font-size: 15px;
+}
+.font_xs{
+  font-size: 10px;
+  align-items: flex-start!important;
+}
+.font_xs .MuiFormControlLabel-label{
+  font-size: 10px;
+}
+.font_small{
+  font-size: 12px;
+}
+.font_medium{
+  font-size: 14px;
+}
+.font_regular{
+  font-size: 16px;
+}
+.font_large{
+  font-size: 18px;
+}
+.CoverageDiv .btn_secondary {
+  background-color: #808285!important;
+  border: 1.5px solid #fff!important;
+  border-radius: 10px;
+  box-shadow: none;
+    padding: 6px!important;
+    color:#fff!important;
+    text-transform: capitalize;
+}
+.CoverageDiv .MuiStepper-root.MuiStepper-horizontal .MuiStep-root{
+  padding:0px;
+}
+.CoverageDiv .MuiStepper-root.MuiStepper-horizontal .MuiStep-root .MuiStepLabel-iconContainer{
+  padding-right: 0px;
+}
+.CoverageDiv .MuiStepConnector-line{
+  border-top-width: 6px;
+}
+.CoverageDiv .MuiStepIcon-root{
+  width: 0.7em;
+  height: 0.7em;
+  color:#cacaca;
+}
+.CoverageDiv .MuiStepIcon-root.Mui-completed{
+  color:#1972b9;
+}
+.CoverageDiv .MuiOutlinedInput-notchedOutline{
+  border-color:#83c65c;
+}
+.CoverageDiv .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-width: 1px;
+}
+.CoverageDiv .MuiButtonBase-root.MuiListItemButton-root{
+  border: 1px solid #83c65c;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 5px 15px;
+  background: #f6f6f9;
+}
+.CoverageDiv .MuiButtonBase-root.MuiListItemButton-root.Mui-selected{
+  background: #ccc;
+}
+.CoverageDiv .MuiButtonBase-root.MuiListItemButton-root .MuiTypography-root{
+  font-size: 12px;
+}
+.background_grey{
+  background-color: var( --bg-listbackground);
+}
+.green_border{
+  border-width: 1px;
+  border-color:var(--green-border);
+}
+.readonlyvalues .formCaption{
+  font-family: Arial, Helvetica, sans-serif!important;
+  font-size: 12px;
+  font-weight: 600;
+}
+.readonlyvalues .formValue{
+  font-family: Arial, Helvetica, sans-serif!important;
+  word-break: break-all;
+  font-size: 13px;
+  margin-left: 15px;
+}
+.addressCheckbox .MuiCheckbox-root{
+  padding-top:0px;
+  padding-bottom: 0px;
 }

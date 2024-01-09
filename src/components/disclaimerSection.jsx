@@ -15,6 +15,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 
 const DisclaimerSection = () => {
+  return (
     <section className='disclaimer_section'>
         <Container fixed>
           <Grid container className='' spacing={2}>
@@ -54,6 +55,7 @@ const DisclaimerSection = () => {
           </Grid>
         </Container>
       </section>
+  );
 }
 
 export default DisclaimerSection;
