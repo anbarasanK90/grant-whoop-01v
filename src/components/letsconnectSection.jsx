@@ -8,6 +8,7 @@ import Logo_02 from '../images/02_logo.png';
 import InputBase from '@mui/material/InputBase';
 
 const LetsconnectSection = () => {
+  return (
     <section className='LetsconnectSection'>
         <Container fixed>
           <Grid container className='' spacing={2}>
@@ -75,6 +76,7 @@ const LetsconnectSection = () => {
           </Grid>
         </Container>
       </section>
+  );
 }
 
 export default LetsconnectSection;
