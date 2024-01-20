@@ -7,7 +7,7 @@ const UserDetailsProvider = ({ children }) => {
   const setUserDetails = ({
     lastName,
     firstName,
-    email,
+    eMail,
     secretQuestion,
     secretAnswer,
     mainPageNave,
@@ -17,6 +17,7 @@ const UserDetailsProvider = ({ children }) => {
     ssn,
     dob,
     phNumber,
+    errorState
   }) => {
     updateUserDetails(prevState => {
       const newState = { ...prevState }
@@ -24,7 +25,7 @@ const UserDetailsProvider = ({ children }) => {
       return merge(newState, {
         lastName,
         firstName,
-        email,
+        eMail,
         secretQuestion,
         secretAnswer,
         mainPageNave,
@@ -34,24 +35,36 @@ const UserDetailsProvider = ({ children }) => {
         ssn,
         dob,
         phNumber,
+        errorState: {
+          ...prevState.errorState, // Preserve existing errorState values
+          ...errorState, // Update with new errorState values
+        },
       })
     })
   }
 
   const userState = {
     lastName: '',
-  firstName: '',
-  email: '',
-  secretQuestion: '',
-  secretAnswer: '',
-  mainPageNave: false,
-  zipCodeCheck: false,
-  showNextPage: 'Step_1',
-  agree: false,
-  ssn: '',
-  dob: '',
-  phNumber:'',
-  setUserDetails
+    firstName: '',
+    eMail: '',
+    secretQuestion: '',
+    secretAnswer: '',
+    mainPageNave: false,
+    zipCodeCheck: false,
+    showNextPage: 'Step_1',
+    agree: false,
+    ssn: '',
+    dob: '',
+    phNumber:'',
+    setUserDetails,
+  errorState: {
+    firstNameError: false,
+    lastNameError: false,
+    eMailError: false,
+    phoneNumberError: false,
+    dateBirthError: false,
+    ssnError: false,
+  },
   }
 
   const [userDetails, updateUserDetails] = useState(userState)

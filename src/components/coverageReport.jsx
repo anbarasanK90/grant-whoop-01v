@@ -8,7 +8,6 @@ import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import TextField from '@mui/material/TextField';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -21,6 +20,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Approved from '../images/Approved.png';
 import Slide_7_Tablet from '../images/Slide_7_Tablet.png';
 import UserDetailsContext from '../context/context'
+import {fetchData} from '../components/fetchData';
+import TextFieldComponent from '../components/textfieldComponent';
+import {step_1_Labels} from '../context/labels';
 
 const marks = [
     {
@@ -59,8 +61,23 @@ const Coveragereport = () => {
         return skipped.has(step);
     };
 
+    const errorValidate =() => {
+        const setError = step_1_Labels.filter((value, index)=>{
+            if(contextValue.userDetails[value] === '') {
+                contextValue.userDetails?.setUserDetails({errorState: {
+                    ...contextValue.userDetails?.errorState,
+                    [`${value}Error`]: true,
+                },});
+            }
+            return contextValue.userDetails[value] !== ''
+        });
+        console.log(setError);
+        return (setError.length === 0);
+    };
+
     const handleNext = () => {
-        if(contextValue.userDetails?.showNextPage !== 'Step_7') {
+        console.log(errorValidate())
+        if(contextValue.userDetails?.showNextPage !== 'Step_6' && errorValidate() ) {
         
             let newSkipped = skipped;
             if (isStepSkipped(activeStep)) {
@@ -72,18 +89,73 @@ const Coveragereport = () => {
             setSkipped(newSkipped);
         
         const stepValue =  contextValue.userDetails?.showNextPage.split('_')[1];
-        if (stepValue<= 7){
+        if (stepValue<= 7) {
             contextValue.userDetails?.setUserDetails({showNextPage: `Step_${Number(stepValue) + 1}`})
        }
+    }else if(contextValue.userDetails?.showNextPage === 'Step_6'){
+        const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
+    // Your username and password
+    const username = process.env.REACT_APP_UID;
+    const password = process.env.REACT_APP_PID;
+    console.log(process.env.REACT_APP_BACKEND_URL, process.env.REACT_APP_UID)
+    // Create a base64-encoded string of the username and password
+    const base64Credentials = btoa(`${username}:${password}`);
+
+    // Your request payload for a POST request (adjust as needed)
+    const requestBody = {
+            "api_key": process.env.REACT_APP_API_KEY,
+            "applicant_first_name": "string: REQUIRED",
+            "applicant_last_name": "string: REQUIRED",
+            "applicant_birthday": "string: REQUIRED yyyy-MM-dd",
+            "applicant_ssn": "REQUIRED: 4 digits",
+            "applicant_tribal_id": "string",
+            "applicant_alt_contact_name": "string",
+            "applicant_last_name_two": "string",
+            "applicant_middle_name": "string",
+            "applicant_suffix": "string",
+            "service_street_address_one": "string: REQUIRED",
+            "service_street_address_two": "string",
+            "service_zip_code": "string: REQUIRED 5 digits",
+            "service_city": "string: REQUIRED",
+            "service_state": "string: REQUIRED 2 characters",
+            "program_code": "string: REQUIRED refer to value property under section ** IMPORTANT **",
+            "phone_number": "string: REQUIRED 10 digit phone",
+            "email": "string: REQUIRED",
+            "is_tablet_approved_and_paid": true,
+            "best_way_to_communicate": "string: REQUIRED Phone or Email",
+            "service_same_as_mailing": true,
+            "payment_type": "string",
+            "payment_processor": "string: REQUIRED IF payment_type is not blank",
+            "payment_id":"string: REQUIRED IF payment_type is not blank",
+            "mailing_street_address_one": "string",
+            "mailing_street_address_two": "string",
+            "mailing_city": "string",
+            "mailing_state": "string: 2 characters",
+            "mailing_zip_code": "string: 5 digits",
+            "bqp_birthday": "101223",
+            "bqp_first_name": "string",
+            "bqp_last_name": "string",
+            "bqp_middle_name": "string",
+            "bqp_ssn": "2234",
+            "bqp_suffix": "string",
+            "bqp_tribal_id": "string",
+            "bqp_alt_name": "string",
+            "bqp_last_name_two": "string"
+    };
+
+    fetchData(apiUrl, requestBody, base64Credentials);
     }
     };
 
     const handleBack = () => {
            const moveToNextStep =  contextValue.userDetails?.showNextPage.split('_')[0];
-    //    if (moveToNextStep<= 7){
-    //     setToShowNextPage(`Step_${moveToNextStep - 1}`);
-    //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-
+    //    if (moveToNextStep>= 7) {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        const stepValue =  contextValue.userDetails?.showNextPage.split('_')[1];
+        if (stepValue<= 7) {
+            contextValue.userDetails?.setUserDetails({showNextPage: `Step_${Number(stepValue) - 1}`})
+        }
     //    }
     };
 
@@ -161,24 +233,16 @@ const Coveragereport = () => {
                                 </Typography>
                                 <Grid container className='!mt-3' spacing={2}>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="First Name" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({firstName: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                        <TextFieldComponent label="First Name" name='firstName'/>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="Last Name" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({lastName: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                        <TextFieldComponent label="Last Name" name={'lastName'}/>
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Email" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({eMail: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                        <TextFieldComponent label="Email" name={'eMail'}/>
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Phone Number" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({phNumber: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                        <TextFieldComponent label="Phone Number" name={'phNumber'}/>
                                     </Grid>
                                 </Grid>
                                 <div className='mt-3'>
@@ -193,14 +257,10 @@ const Coveragereport = () => {
                                     <Grid container className='!mt-2' spacing={2}>
 
                                         <Grid item xs={12} md={12} lg={12}>
-                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Date of Birth" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({dob: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                            <TextFieldComponent label="Date of Birth" name={'dob'}/>
                                         </Grid>
                                         <Grid item xs={12} md={12} lg={12}>
-                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Last 4 Numbers of SSN" variant="outlined" onChange={(e) => {
-                                    contextValue.userDetails?.setUserDetails({ssn: e.target.value !== '' ? e.target.value : ''})
-                                    }}/>
+                                            <TextFieldComponent label="Last 4 Numbers of SSN" name={'ssn'}/>
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -397,19 +457,19 @@ Program for Women, Infants & Children (WIC)" />
                                 </Typography>
                                 <Grid container className='!mt-3' spacing={2}>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="ADDRESS LINE 1" variant="outlined" />
+                                        <TextFieldComponent label="ADDRESS LINE 1" name={'ADDRESSLINE1'}/>
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="ADDRESS LINE 2" variant="outlined" />
+                                        <TextFieldComponent label="ADDRESS LINE 2" name={'ADDRESSLINE2'}/>                                    
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="City" variant="outlined" />
+                                        <TextFieldComponent label="City" name={'City'}/>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="State" variant="outlined" />
+                                        <TextFieldComponent label="State" name={'State'}/>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="Zipcode" variant="outlined" />
+                                        <TextFieldComponent label="Zipcode" name={'Zipcode'}/>
                                     </Grid>
                                 </Grid>
                                 <div className='mt-4 addressCheckbox'>
@@ -493,7 +553,7 @@ Devices may vary.
                                             stepProps.completed = false;
                                         }
                                         return (
-                                            <Step key={label} {...stepProps}>
+                                            <Step key={label+index} {...stepProps}>
                                                 <StepLabel {...labelProps}></StepLabel>
                                             </Step>
                                         );

@@ -3,7 +3,7 @@ import { createContext } from 'react'
 const UserDetailsContext = createContext({
   lastName: '',
   firstName: '',
-  email: '',
+  eMail: '',
   secretQuestion: '',
   secretAnswer: '',
   mainPageNave: false,
@@ -16,7 +16,7 @@ const UserDetailsContext = createContext({
   errorState: {
     firstNameError: false,
     lastNameError: false,
-    emailError: false,
+    eMailError: false,
     phoneNumberError: false,
     dateBirthError: false,
     ssnError: false,
