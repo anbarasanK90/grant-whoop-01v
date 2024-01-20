@@ -1,6 +1,5 @@
 import Slider from "react-slick";
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import NoContract from '../images/01_Model_txt_1.png';
 import NoCredit from '../images/01_Model_txt_2.png';
@@ -11,7 +10,7 @@ import Slide3Img from '../images/01_Model_3.png';
 import WhoopLogo from '../images/01_header_logo.png';
 
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
+import ZipCodeCheck from './zipcodecheck';
 
 const SliderComponent = () => {
     const settings = {
@@ -72,19 +71,8 @@ const SliderComponent = () => {
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         Checking the coverage in your area to get started.
                       </Typography>
-                      <div className='flex md:flex-row flex-col mt-4'>
-                        <div className='flex-1 me-3'>
-                          <InputBase className='custom_input'
-                            placeholder="Enter ZIP Code"
-                            inputProps={{ 'aria-label': 'search google maps' }}
-                          />
-                        </div>
-                        <div className='flex-1'>
-                          <Button variant="contained" className='w-full !py-2 btn_success' color="success">
-                            Check Coverage
-                          </Button>
-                        </div>
-                      </div>
+                      
+                      <ZipCodeCheck />
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         ALREADY STARTED YOUR ENROLLMENT? CLICK HERE!
                       </Typography>
@@ -150,19 +138,8 @@ const SliderComponent = () => {
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         Checking the coverage in your area to get started.
                       </Typography>
-                      <div className='flex md:flex-row flex-col mt-4'>
-                        <div className='flex-1 me-3'>
-                          <InputBase className='custom_input'
-                            placeholder="Enter ZIP Code"
-                            inputProps={{ 'aria-label': 'search google maps' }}
-                          />
-                        </div>
-                        <div className='flex-1'>
-                          <Button variant="contained" className='w-full !py-2 btn_success' color="success">
-                            Check Coverage
-                          </Button>
-                        </div>
-                      </div>
+                      
+                      <ZipCodeCheck />
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         ALREADY STARTED YOUR ENROLLMENT? CLICK HERE!
                       </Typography>
@@ -228,19 +205,7 @@ const SliderComponent = () => {
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         Checking the coverage in your area to get started.
                       </Typography>
-                      <div className='flex md:flex-row flex-col mt-4'>
-                        <div className='flex-1 me-3'>
-                          <InputBase className='custom_input'
-                            placeholder="Enter ZIP Code"
-                            inputProps={{ 'aria-label': 'search google maps' }}
-                          />
-                        </div>
-                        <div className='flex-1'>
-                          <Button variant="contained" className='w-full !py-2 btn_success' color="success">
-                            Check Coverage
-                          </Button>
-                        </div>
-                      </div>
+                      <ZipCodeCheck />
                       <Typography variant="p" color="white" className='!mt-3' align="center" component="p">
                         ALREADY STARTED YOUR ENROLLMENT? CLICK HERE!
                       </Typography>

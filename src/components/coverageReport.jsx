@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Main_logo from '../images/Main_logo_1.png';
@@ -17,13 +17,10 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import Approved from '../images/Approved.png';
 import Slide_7_Tablet from '../images/Slide_7_Tablet.png';
+import UserDetailsContext from '../context/context'
 
 const marks = [
     {
@@ -44,13 +41,15 @@ const marks = [
     },
 ];
 
-function valuetext(value: number) {
+function valuetext(value) {
     return `${value}°C`;
 }
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
 const Coveragereport = () => {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
+    const steps = ['', '', '','', '', ''];
+    const contextValue = useContext(UserDetailsContext);
 
     const isStepOptional = (step) => {
         return step === 1;
@@ -61,24 +60,35 @@ const Coveragereport = () => {
     };
 
     const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
-        }
+        if(contextValue.userDetails?.showNextPage !== 'Step_7') {
+        
+            let newSkipped = skipped;
+            if (isStepSkipped(activeStep)) {
+                newSkipped = new Set(newSkipped.values());
+                newSkipped.delete(activeStep);
+            }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            setSkipped(newSkipped);
+        
+        const stepValue =  contextValue.userDetails?.showNextPage.split('_')[1];
+        if (stepValue<= 7){
+            contextValue.userDetails?.setUserDetails({showNextPage: `Step_${Number(stepValue) + 1}`})
+       }
+    }
     };
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+           const moveToNextStep =  contextValue.userDetails?.showNextPage.split('_')[0];
+    //    if (moveToNextStep<= 7){
+    //     setToShowNextPage(`Step_${moveToNextStep - 1}`);
+    //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+    //    }
     };
 
     const handleSkip = () => {
         if (!isStepOptional(activeStep)) {
-            // You probably want to guard against something like this,
-            // it should never occur unless someone's actively trying to break something.
             throw new Error("You can't skip a step that isn't optional.");
         }
 
@@ -98,8 +108,10 @@ const Coveragereport = () => {
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
+
     return (
         <Container>
+
             <Grid container className='mt-5' spacing={2}>
                 <Grid item xs={12} md={4} lg={3.5} className='!m-auto'>
                     <div className='flex flex-row justify-evenly'>
@@ -107,7 +119,7 @@ const Coveragereport = () => {
                         <img className='max-w-full' src={Main_logo_2} />
                     </div>
                     <div className='CoverageDiv mt-4'>
-                        <div className='section_1 hidden'>
+                       {!contextValue.userDetails?.zipCodeCheck && <div className='section_1 '>
                             <Typography variant="h5" color="black" align="center" component="h5">
                                 COVERAGE REPORT
                             </Typography>
@@ -129,12 +141,17 @@ const Coveragereport = () => {
                                     valueLabelDisplay="on"
                                 />
                             </Box>
-                            <Button variant="contained" className='w-full !py-2 btn_success' color="success">
+                            <Button variant="contained" className='w-full !py-2 btn_success' color="success" 
+                            onClick={(e) => {
+                                    contextValue.userDetails?.setUserDetails({zipCodeCheck: true})
+                                }}>
                                 Submit
                             </Button>
                         </div>
-                        <div className='section_2'>
-                            <div className='Step1 hidden'>
+                        }
+                        {contextValue.userDetails?.zipCodeCheck && <div className='section_2 '>
+                            
+                            {contextValue.userDetails?.showNextPage === 'Step_1' && <div className='Step_1'>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     CONTACT INFORMATION
                                 </Typography>
@@ -144,16 +161,24 @@ const Coveragereport = () => {
                                 </Typography>
                                 <Grid container className='!mt-3' spacing={2}>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="First Name" variant="outlined" />
+                                        <TextField required size="small" id="outlined-basic" label="First Name" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({firstName: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                     </Grid>
                                     <Grid item xs={12} md={6} lg={6}>
-                                        <TextField required size="small" id="outlined-basic" label="Last Name" variant="outlined" />
+                                        <TextField required size="small" id="outlined-basic" label="Last Name" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({lastName: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Email" variant="outlined" />
+                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Email" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({eMail: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                     </Grid>
                                     <Grid item xs={12} md={12} lg={12}>
-                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Phone Number" variant="outlined" />
+                                        <TextField required className='w-full' size="small" id="outlined-basic" label="Phone Number" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({phNumber: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                     </Grid>
                                 </Grid>
                                 <div className='mt-3'>
@@ -168,22 +193,30 @@ const Coveragereport = () => {
                                     <Grid container className='!mt-2' spacing={2}>
 
                                         <Grid item xs={12} md={12} lg={12}>
-                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Date of Birth" variant="outlined" />
+                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Date of Birth" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({dob: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                         </Grid>
                                         <Grid item xs={12} md={12} lg={12}>
-                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Last 4 Numbers of SSN" variant="outlined" />
+                                            <TextField className='w-full' required size="small" id="outlined-basic" label="Last 4 Numbers of SSN" variant="outlined" onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({ssn: e.target.value !== '' ? e.target.value : ''})
+                                    }}/>
                                         </Grid>
                                     </Grid>
                                 </div>
                                 <div className='mt-4 border !rounded p-3'>
-                                    <FormGroup className='items-start'>
-                                        <FormControlLabel className='font_xs' control={<Checkbox defaultChecked size="small" />} label="I consent to Excess Telecom contacting me via
-                                Email, SMS, and/or phone call if necessary to
-                                establish eligibility or to complete my application." />
-                                    </FormGroup>
-                                </div>
-                            </div>
-                            <div className='Step2 hidden'>
+                                    <FormGroup className='items-start' key='termes_agree'>
+                                        <FormControlLabel key='termes_agree' className='font_xs'
+                                    control={<Checkbox defaultChecked size="small" checked={contextValue && contextValue.userDetails?.agree} onChange={(e) => {
+                                    contextValue.userDetails?.setUserDetails({agree: e.target.checked})
+                                }} />} 
+                                    label="I consent to Excess Telecom contacting me via
+                                    Email, SMS, and/or phone call if necessary to
+                                    establish eligibility or to complete my application." />
+                                        </FormGroup>
+                                    </div>
+                                </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_2' && <div className='Step_2 '>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     GOVERNMENT PROGRAM
                                 </Typography>
@@ -253,8 +286,8 @@ Program for Women, Infants & Children (WIC)" />
                                         </List>
                                     </Box>
                                 </div>
-                            </div>
-                            <div className='Step3 hidden'>
+                            </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_3' &&<div className='Step_3 '>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     DISCLOSURE AGREEMENTS
                                 </Typography>
@@ -264,7 +297,7 @@ Program for Women, Infants & Children (WIC)" />
                                 </Typography>
                                 <p className='text_blue font_small mt-4'>ENROLLMENT DISCLOSURES - 1/11</p>
                                 <div className='mt-4 border !rounded-md background_grey green_border p-3'>
-                                    <FormGroup className='items-start'>
+                                    <FormGroup className='items-start' key='termes_agree1'>
                                         <FormControlLabel className='font_xs' control={<Checkbox defaultChecked size="small" />} label="For my household, I affirm and understand that the 
                                         Affordable Connectivity Program (ACP) is a federal 
                                         government benefit program operated by the (FCC) 
@@ -273,8 +306,8 @@ Program for Women, Infants & Children (WIC)" />
                                         devices for eligible consumers." />
                                     </FormGroup>
                                 </div>
-                            </div>
-                            <div className='Step4 hidden'>
+                            </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_4' &&<div className='Step_4'>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     ENROLLMENT REVIEW
                                 </Typography>
@@ -354,8 +387,8 @@ Program for Women, Infants & Children (WIC)" />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='Step5 hidden'>
+                            </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_5' &&<div className='Step_5'>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     YOUR ADDRESS
                                 </Typography>
@@ -380,12 +413,12 @@ Program for Women, Infants & Children (WIC)" />
                                     </Grid>
                                 </Grid>
                                 <div className='mt-4 addressCheckbox'>
-                                    <FormGroup className='items-start'>
+                                    <FormGroup className='items-start' key='termes_agree2'>
                                         <FormControlLabel className='font_xs' control={<Checkbox defaultChecked size="small" />} label="I have a different shipping address" />
                                     </FormGroup>
                                 </div>
-                            </div>
-                            <div className='Step6 hidden'>
+                            </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_6' &&<div className='Step6'>
                                 <Typography variant="h5" className="text_blue" align="center" component="h5">
                                     CONGRATULATIONS
                                 </Typography>
@@ -399,8 +432,8 @@ Program for Women, Infants & Children (WIC)" />
                                 <Typography variant="p" color="black" className='my-5' align="center" component="p">
                                     You will receive an email with follow-up information.
                                 </Typography>
-                            </div>
-                            <div className='Step6'>
+                            </div>}
+                            {contextValue.userDetails?.showNextPage=== 'Step_7' &&<div className='Step_7 '>
                                 <Typography variant="h4" className="text_blue" align="center" component="h4">
                                     EXCELLENT!
                                 </Typography>
@@ -414,7 +447,7 @@ Program for Women, Infants & Children (WIC)" />
                                 A one-time fee of $11 required.
 Devices may vary.
                                 </Typography>
-                            </div>
+                            </div>}
                             <Box sx={{ width: '100%' }}>
                                 {activeStep === steps.length ? (
                                     <React.Fragment>
@@ -440,14 +473,14 @@ Devices may vary.
                                             </Button>
                                             <Box sx={{ flex: '1 1 auto' }} />
 
-                                            <Button variant="contained" className='w-full !py-2 btn_success' color="success" onClick={handleNext}>
+                                            <Button variant="contained" className='w-full !py-2 btn_success' color="success" onClick={(event) => {handleNext()}}>
                                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                             </Button>
                                         </Box>
                                     </React.Fragment>
 
                                 )}
-                                <Stepper activeStep={activeStep}>
+                                <Stepper activeStep={activeStep} >
                                     {steps.map((label, index) => {
                                         const stepProps = {};
                                         const labelProps = {};
@@ -466,8 +499,9 @@ Devices may vary.
                                         );
                                     })}
                                 </Stepper>
+                                
                             </Box>
-                        </div>
+                        </div>}
                     </div>
                 </Grid>
             </Grid>
