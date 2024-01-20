@@ -1,30 +1,24 @@
 import './App.css';
-import React from "react";
+import React, { useContext } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import SliderComponent from "./components/slider";
 import Copyright from "./components/copyright";
-import WhoopconnectSection from "./components/whoopconnectSection";
-import DisclaimerSection from "./components/disclaimerSection";
-import LetsconnectSection from "./components/letsconnectSection";
 import Coveragereport from "./components/coverageReport";
-import { Grid } from '@mui/material';
-
+import MainPage from "./components/mainPage";
+import UserDetailsContext from './context/context'
 function App() {
-
+  // const {mainPageNave} = useContext(UserDetailsContext)
+  const contextValue= useContext(UserDetailsContext);
+    console.log("$$$$",contextValue.userDetails?.mainPageNave);
   return (
     <div className="App">
-      {/* <section className='carousalSection'>
-        <SliderComponent />
-      </section> */}
+      {contextValue.userDetails?.mainPageNave == false && <MainPage />}
+      
+      {contextValue.userDetails?.mainPageNave == true && 
       <section className='CoverageReportSection'>
         <Coveragereport/>
-      </section>
-      {/* <LetsconnectSection />
-      <WhoopconnectSection />
-      <DisclaimerSection />
- */}
+      </section>}
       <footer className='customFooter_section'>
         <Copyright />
       </footer>

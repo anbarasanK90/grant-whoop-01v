@@ -1,11 +1,10 @@
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import Tablet_Img from '../images/02_Tablet.png';
 import Logo_02 from '../images/02_logo.png';
-import InputBase from '@mui/material/InputBase';
+import ZipCodeCheck from './zipcodecheck';
 
 const LetsconnectSection = () => {
   return (
@@ -13,8 +12,8 @@ const LetsconnectSection = () => {
         <Container fixed>
           <Grid container className='' spacing={2}>
             <Grid item xs={12} md={5}>
-              <img className='max-w-full' src={Tablet_Img} />
-              <img className='my-4 max-w-full' src={Logo_02} />
+              <img className='max-w-full' src={Tablet_Img} alt=''/>
+              <img className='my-4 max-w-full' src={Logo_02} alt=''/>
               <div className='applyTodayDiv'>
                 <Typography variant="h2" color="white" align="center" component="h3">
                   APPLY TODAY
@@ -22,20 +21,7 @@ const LetsconnectSection = () => {
                 <Typography variant="p" color="white" className='' align="center" component="p">
                   Enter ZIP Code To Get Started
                 </Typography>
-                <div className='flex md:flex-row flex-col mt-4'>
-                  <div className='flex-1 me-3'>
-                    <InputBase className='custom_input'
-                      placeholder="Enter ZIP Code"
-                      inputProps={{ 'aria-label': 'search google maps' }}
-                    />
-                  </div>
-                  <div className='flex-1'>
-                    <Button variant="contained" className='w-full !py-2 btn_success' color="success">
-                      Check Coverage
-                    </Button>
-                  </div>
-                </div>
-
+                <ZipCodeCheck />
               </div>
             </Grid>
             <Grid className='!pl-8' item xs={12} md={7}>

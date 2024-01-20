@@ -1,18 +1,11 @@
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import WhoopLogo1 from '../images/03_logo.png';
-import Tablet_Img from '../images/02_Tablet.png';
-import Logo_02 from '../images/02_logo.png';
 import Logo_03 from '../images/03_image.png';
-import Logo_04 from '../images/04_logo.png';
 import Logo_All from '../images/03_logo_all.png';
-import Icon_Phone from '../images/04_icon_1.png';
-import Icon_Email from '../images/04_icon_2.png';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
+import ZipCodeCheck from './zipcodecheck';
 
 const WhoopconnectSection = () => {
   return (
@@ -41,20 +34,8 @@ const WhoopconnectSection = () => {
                 <Typography variant="p" color="white" className='' align="center" component="p">
                   Enter ZIP Code To Get Started
                 </Typography>
-                <div className='flex md:flex-row flex-col mt-4'>
-                  <div className='flex-1 me-3'>
-                    <InputBase className='custom_input'
-                      placeholder="Enter ZIP Code"
-                      inputProps={{ 'aria-label': 'search google maps' }}
-                    />
-                  </div>
-                  <div className='flex-1'>
-                    <Button variant="contained" className='w-full !py-2 btn_success' color="success">
-                      Check Coverage
-                    </Button>
-                  </div>
-                </div>
-
+                
+                <ZipCodeCheck />
               </div>
             </Grid>
           </Grid>
