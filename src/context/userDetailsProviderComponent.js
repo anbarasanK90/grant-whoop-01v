@@ -21,7 +21,7 @@ const UserDetailsProvider = ({ children }) => {
   }) => {
     updateUserDetails(prevState => {
       const newState = { ...prevState }
-      console.log(prevState, newState)
+      // console.table(newState, errorState)
       return merge(newState, {
         lastName,
         firstName,
@@ -57,14 +57,14 @@ const UserDetailsProvider = ({ children }) => {
     dob: '',
     phNumber:'',
     setUserDetails,
-  errorState: {
-    firstNameError: false,
-    lastNameError: false,
-    eMailError: false,
-    phoneNumberError: false,
-    dateBirthError: false,
-    ssnError: false,
-  },
+    errorState: {
+      firstNameError: false,
+      lastNameError: false,
+      eMailError: false,
+      phNumberError: false,
+      dobError: false,
+      ssnError: false,
+    },
   }
 
   const [userDetails, updateUserDetails] = useState(userState)

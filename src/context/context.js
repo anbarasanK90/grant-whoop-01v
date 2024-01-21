@@ -17,9 +17,10 @@ const UserDetailsContext = createContext({
     firstNameError: false,
     lastNameError: false,
     eMailError: false,
-    phoneNumberError: false,
-    dateBirthError: false,
+    phNumberError: false,
+    dobError: false,
     ssnError: false,
+    agreeError: false
   },
   setUserDetails: userDetails => {},
 })
